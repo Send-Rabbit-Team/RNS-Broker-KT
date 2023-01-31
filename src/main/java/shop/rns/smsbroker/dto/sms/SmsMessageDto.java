@@ -8,6 +8,8 @@ import lombok.Setter;
 import shop.rns.smsbroker.config.status.MessageStatus;
 import shop.rns.smsbroker.config.type.MessageType;
 
+import java.util.List;
+
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
@@ -24,7 +26,7 @@ public class SmsMessageDto {
 
     private String content;
 
-    private String image;
+    private List<String> images;
 
     private MessageStatus messageStatus;
 

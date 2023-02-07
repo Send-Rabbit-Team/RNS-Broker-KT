@@ -34,7 +34,7 @@ public class MessageConsumer {
 
     // RECEIVE
     @RabbitListener(queues = "q.sms.kt.work", concurrency = "3", ackMode = "MANUAL")
-    public void receiveMessage(Message message, Channel channel) {
+    public void receiveMessage(Message message, Channel channel) throws IOException {
         try {
             ReceiveMessageDto receiveMessageDto = objectMapper.readValue(new String(message.getBody()), ReceiveMessageDto.class);
 
@@ -45,11 +45,13 @@ public class MessageConsumer {
 
             channel.basicAck(message.getMessageProperties().getDeliveryTag(), false);
             sendResponseToSendServer(messageResultDto);
-//            dlxProcessingErrorHandler.handleErrorProcessingMessage(message, channel);
+
+//            channel.basicReject(message.getMessageProperties().getDeliveryTag(), false);
         } catch (IOException e){
             log.warn("Error processing message:" + new String(message.getBody()) + ":" + e.getMessage());
-            dlxProcessingErrorHandler.handleErrorProcessingMessage(message, channel);
+            channel.basicReject(message.getMessageProperties().getDeliveryTag(), false);
         }
+
     }
 
     // RESPONSE TO SEND SERVER

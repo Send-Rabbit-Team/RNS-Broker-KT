@@ -3,7 +3,7 @@ package shop.rns.smsbroker.dlx;
 import java.util.*;
 
 public class RabbitmqHeader {
-    private static final String KEY_WORD_QUEUE_WAIT = "wait";
+    private static final String KEY_WORD_QUEUE_WORK = "work";
     private List<RabbitmqHeaderXDeath> xDeaths = new ArrayList<>();
     private String xFirstDeathExchange;
     private String xFirstDeathQueue;
@@ -51,8 +51,8 @@ public class RabbitmqHeader {
     public int getFailedRetryCount(){
         int deadCount = 0;
         for(RabbitmqHeaderXDeath xDeath: xDeaths){
-            if(xDeath.getExchange().toLowerCase().endsWith(KEY_WORD_QUEUE_WAIT)
-            && xDeath.getQueue().toLowerCase().endsWith(KEY_WORD_QUEUE_WAIT))
+            if(xDeath.getExchange().toLowerCase().endsWith(KEY_WORD_QUEUE_WORK)
+            && xDeath.getQueue().toLowerCase().endsWith(KEY_WORD_QUEUE_WORK))
                deadCount += xDeath.getCount();
         }
         return deadCount;

@@ -1,9 +1,7 @@
 package shop.rns.smsbroker.utils.rabbitmq;
 
 public class RabbitUtil {
-    public static final int WORK_TTL = 10 * 1000;
-    public static final int WAIT_TTL = 5 * 1000;
-
+    public static final int WORK_TTL = 5 * 1000;
     public static final String SMS_EXCHANGE_NAME = "dx.sms.work";
     public static final String SENDER_EXCHANGE_NAME = "dx.sms.sender";
     public static final String WAIT_EXCHANGE_NAME = "dx.sms.wait";
